@@ -10,8 +10,8 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MONGO_URL = os.getenv("MONGO_URL")
-ADMIN_IDS = os.getenv("ADMIN_IDS").split(",")
-GROUP_ID = os.getenv("GROUP_ID")
+ADMIN_IDS = tuple(os.getenv("ADMIN_IDS").split(","))
+GROUP_ID = int(os.getenv("GROUP_ID"))
 
 
 cluster = MongoClient(MONGO_URL)
