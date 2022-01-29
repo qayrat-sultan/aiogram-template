@@ -20,6 +20,10 @@ Scalable and straightforward template for bots written on [aiogram](https://gith
 - Activate your virtualenv: Unix: `source venv/bin/activate` or Win: `venv\Scripts\activate`
 - Rename `dist.env` to `.env` and replace a token placeholder with your own one;
 - Install requirement libraries: `pip install -r req.txt`
+- If use MongoDB server:
+-  1. `pip install pymongo[srv]`
+-  2. Visit mongodb.com and create cluster
+-  3. Copy host url string and paste .env MONGO_URL variable
 - Start the bot: `python bot.py`.
 
 **Tip**: set `BOT_TOKEN` environment variable to change bot token. If no variable is specified, it'll not working.
