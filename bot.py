@@ -49,7 +49,7 @@ async def report_process(message: types.Message, state: FSMContext):
 
 @dp.message_handler(content_types=configs.all_content_types)
 async def some_text(message: types.Message):
-    await handlers.some_text_handler(message)
+    await handlers.some_text_handler(message, bot)
 
 
 if __name__ == '__main__':
