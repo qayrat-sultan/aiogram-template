@@ -1,0 +1,66 @@
+# Uzbek translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-02-11 17:02+0500\n"
+"PO-Revision-Date: 2022-02-11 17:03+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: uz\n"
+"Language-Team: uz <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: bot.py:36 bot.py:73
+msgid "One"
+msgstr "Bir"
+
+#: bot.py:37 bot.py:78
+msgid "Two"
+msgstr "Ikki"
+
+#: bot.py:38 bot.py:83
+msgid "Three"
+msgstr "Uch"
+
+#: bot.py:47
+msgid "Hello, <b>{user}</b>!"
+msgstr ""
+
+#: bot.py:55 bot.py:92
+msgid "Your current language: <i>{language}</i>"
+msgstr ""
+
+#: bot.py:64
+msgid ""
+"Specify your language.\n"
+"Example: /setlang en"
+msgstr ""
+
+#: bot.py:66
+msgid "This language is not available. Use en or ru"
+msgstr ""
+
+#: bot.py:70
+msgid "Language set."
+msgstr ""
+
+#: bot.py:75
+msgid "Really one"
+msgstr "Rostdan bir"
+
+#: bot.py:80
+msgid "Really two"
+msgstr "Rostdan ikki"
+
+#: bot.py:85
+msgid "Really three"
+msgstr "Rostdan uch"
+
