@@ -42,9 +42,10 @@ START_KEYBOARD = types.ReplyKeyboardMarkup(
 
 
 @dp.message_handler(commands="start")
-async def cmd_start(message: types.Message):
+async def cmd_start(message: types.Message, locale):
+    print(locale)
     await message.answer(
-        _("Hello, <b>{user}</b>!").format(user=message.from_user.full_name),
+        _("Hello, <b>{user}</b>!", locale=locale).format(user=message.from_user.full_name),
         reply_markup=START_KEYBOARD,
     )
 
@@ -66,8 +67,11 @@ async def cmd_setlang(message: types.Message):
         return await message.answer(_("This language is not available. Use en or ru"))
 
     configs.LANG_STORAGE[message.from_user.id] = lang
+    configs.collusers.update_one({"_id": int(message.from_user.id)}, {
+        "$set": {"lang": lang}})
 
     await message.answer(_("Language set.", locale=lang))
+    await cmd_start(message, lang)
 
 
 @dp.message_handler(text=_("One"))
@@ -108,7 +112,6 @@ async def post(message: types.Message):
 
 @dp.message_handler(commands=["report"])
 async def report(message: types.Message):
-    print("XAXA", message)
     await SetReport.report.set()
     await message.answer("Bizga o'z takliflaringizni yuboring!")
 
@@ -116,7 +119,6 @@ async def report(message: types.Message):
 @dp.message_handler(state=SetReport.report,
                     content_types=configs.all_content_types)
 async def report_process(message: types.Message, state: FSMContext):
-    print("PAPA", message)
     await handlers.report_process_handler(message, state, bot)
 
 
@@ -143,6 +145,7 @@ async def some_handler(chat_member: types.ChatMemberUpdated):
 @dp.message_handler(content_types=configs.all_content_types)
 async def some_text(message: types.Message):
     print("DADA", message)
+    print(configs.LANG_STORAGE)
     await handlers.some_text_handler(message, bot)
 
 

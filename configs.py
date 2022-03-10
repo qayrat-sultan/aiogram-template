@@ -24,7 +24,7 @@ GROUP_ID = int(os.getenv("GROUP_ID"))
 
 # Language
 LANG_STORAGE = {}
-LANGS = ["ru", "en", "uz"]
+LANGS = ["ru", "en", "uz", "uk"]
 I18N_DOMAIN = "mybot"
 BASE_DIR = Path(__file__).parent
 LOCALES_DIR = BASE_DIR / "locales"
@@ -76,7 +76,7 @@ class Localization(I18nMiddleware):
 async def on_startup(dp):
     users_lang = collusers.find({}, {"_id": 1, "lang": 1})
     for i in users_lang:
-        LANG_STORAGE[i.get("_id")] = i.get("lang", "uz")
+        LANG_STORAGE[i.get("_id")] = i.get("lang", "ru")
     for i in ADMIN_IDS:
         try:
             await dp.bot.send_message(i, "Bot are start!")

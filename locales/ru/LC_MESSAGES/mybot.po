@@ -21,47 +21,49 @@ msgstr ""
 
 #: bot.py:36 bot.py:73
 msgid "One"
-msgstr ""
+msgstr "Один"
 
 #: bot.py:37 bot.py:78
 msgid "Two"
-msgstr ""
+msgstr "Два"
 
 #: bot.py:38 bot.py:83
 msgid "Three"
-msgstr ""
+msgstr "Три"
 
 #: bot.py:47
 msgid "Hello, <b>{user}</b>!"
-msgstr ""
+msgstr "Привет, <b>{user}</b>!"
 
 #: bot.py:55 bot.py:92
 msgid "Your current language: <i>{language}</i>"
-msgstr ""
+msgstr "Ваш язык: <i>{language}</i>"
 
 #: bot.py:64
 msgid ""
 "Specify your language.\n"
 "Example: /setlang en"
 msgstr ""
+"Напишите ваш предпочитаемый язык\n"
+"Например: /setlang ru"
 
 #: bot.py:66
 msgid "This language is not available. Use en or ru"
-msgstr ""
+msgstr "Этот язык не существует. Используйте en или ru"
 
 #: bot.py:70
 msgid "Language set."
-msgstr ""
+msgstr "Язык выбран."
 
 #: bot.py:75
 msgid "Really one"
-msgstr ""
+msgstr "Реально один"
 
 #: bot.py:80
 msgid "Really two"
-msgstr ""
+msgstr "Реально два"
 
 #: bot.py:85
 msgid "Really three"
-msgstr ""
+msgstr "Реально три"
 
