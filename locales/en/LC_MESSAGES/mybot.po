@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-02-11 17:02+0500\n"
+"POT-Creation-Date: 2022-03-22 13:16+0500\n"
 "PO-Revision-Date: 2022-02-11 17:02+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,49 +18,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: bot.py:36 bot.py:73
+#: kbs.py:8 main.py:65
 msgid "One"
-msgstr ""
+msgstr "One"
 
-#: bot.py:37 bot.py:78
+#: kbs.py:9 main.py:70
 msgid "Two"
-msgstr ""
+msgstr "Two"
 
-#: bot.py:38 bot.py:83
+#: kbs.py:10 main.py:75
 msgid "Three"
-msgstr ""
+msgstr "Three"
 
-#: bot.py:47
+#: main.py:35
 msgid "Hello, <b>{user}</b>!"
-msgstr ""
+msgstr "Hello, <b>{user}</b>!"
 
-#: bot.py:55 bot.py:92
+#: main.py:43 main.py:84
 msgid "Your current language: <i>{language}</i>"
-msgstr ""
+msgstr "Your current language: <i>{language}</i>"
 
-#: bot.py:64
-msgid ""
-"Specify your language.\n"
-"Example: /setlang en"
-msgstr ""
+#: main.py:62
+msgid "Select this lang"
+msgstr "Select this lang"
 
-#: bot.py:66
-msgid "This language is not available. Use en or ru"
-msgstr ""
-
-#: bot.py:70
-msgid "Language set."
-msgstr ""
-
-#: bot.py:75
+#: main.py:67
 msgid "Really one"
-msgstr ""
+msgstr "Really one"
 
-#: bot.py:80
+#: main.py:72
 msgid "Really two"
+msgstr "Really two"
+
+#: main.py:77
+msgid "Really three"
+msgstr "Really three"
+
+#: main.py:119
+msgid "Selected"
 msgstr ""
 
-#: bot.py:85
-msgid "Really three"
-msgstr ""
+#~ msgid ""
+#~ "Specify your language.\n"
+#~ "Example: /setlang en"
+#~ msgstr ""
+
+#~ msgid "This language is not available. Use en or ru"
+#~ msgstr ""
+
+#~ msgid "Language set."
+#~ msgstr ""
+
+#~ msgid "Selected en lang"
+#~ msgstr "Selected lang english"
+
+#~ msgid "Tanlandi"
+#~ msgstr ""
 

@@ -2,26 +2,26 @@ import admin_commands
 import configs
 import handlers
 
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import Bot, Dispatcher, executor, types, utils
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from aiogram.utils.callback_data import CallbackData
 
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.contrib.fsm_storage.mongo import MongoStorage
 
+import kbs
 
 BOT_TOKEN = configs.BOT_TOKEN
 
-
 # Setup bot Dispatcher
 bot = Bot(BOT_TOKEN, parse_mode=types.ParseMode.HTML)
-dp = Dispatcher(bot)
-
+storage = MongoStorage(uri=configs.MONGO_URL)
+dp = Dispatcher(bot, storage=storage)
 
 # Setup i18n middleware
 i18n = configs.Localization(configs.I18N_DOMAIN,
                             configs.LOCALES_DIR)
 dp.middleware.setup(i18n)
-
 
 # Alias for gettext method
 _ = i18n.lazy_gettext
@@ -31,23 +31,11 @@ class SetReport(StatesGroup):
     report = State()
 
 
-START_KEYBOARD = types.ReplyKeyboardMarkup(
-    keyboard=[
-        [types.KeyboardButton(_("One"))],
-        [types.KeyboardButton(_("Two"))],
-        [types.KeyboardButton(_("Three"))],
-    ],
-    resize_keyboard=True,
-)
-
-
 @dp.message_handler(commands="start")
 async def cmd_start(message: types.Message, locale):
-    print(locale)
-    await message.answer(
-        _("Hello, <b>{user}</b>!", locale=locale).format(user=message.from_user.full_name),
-        reply_markup=START_KEYBOARD,
-    )
+    await bot.send_message(message.from_user.id, _("Hello, <b>{user}</b>!",
+                                                   locale=locale).format(user=message.from_user.full_name),
+                           reply_markup=await kbs.start_keyboard(locale))  # required use bot.send_message!
 
 
 @dp.message_handler(commands="lang")
@@ -59,19 +47,20 @@ async def cmd_lang(message: types.Message, locale):
 
 @dp.message_handler(commands="setlang")
 async def cmd_setlang(message: types.Message):
-    lang = message.get_args()
-
-    if not lang:
-        return await message.answer(_("Specify your language.\nExample: /setlang en"))
-    if lang not in configs.LANGS:
-        return await message.answer(_("This language is not available. Use en or ru"))
-
-    configs.LANG_STORAGE[message.from_user.id] = lang
-    configs.collusers.update_one({"_id": int(message.from_user.id)}, {
-        "$set": {"lang": lang}})
-
-    await message.answer(_("Language set.", locale=lang))
-    await cmd_start(message, lang)
+    confirm_lang = CallbackData('lang', 'action')
+    inline_key = types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                types.InlineKeyboardButton("🇷🇺",
+                                           callback_data=confirm_lang.new(action="ru")),
+                types.InlineKeyboardButton("🇺🇿",
+                                           callback_data=confirm_lang.new(action="uz")),
+                types.InlineKeyboardButton("🇺🇸",
+                                           callback_data=confirm_lang.new(action="en"))
+            ]
+        ],
+    )
+    await message.answer(_("Select this lang"), reply_markup=inline_key)
 
 
 @dp.message_handler(text=_("One"))
@@ -104,7 +93,6 @@ async def menu(message: types.Message):
 
 @dp.message_handler(commands=['post'])
 async def post(message: types.Message):
-    print("PRONTO", message)
     data = {'type': 'text', 'text': 'text', 'entities': None}
     users = 390736292,
     await admin_commands.send_post_all_users(data, users, bot)
@@ -120,6 +108,17 @@ async def report(message: types.Message):
                     content_types=configs.all_content_types)
 async def report_process(message: types.Message, state: FSMContext):
     await handlers.report_process_handler(message, state, bot)
+
+
+@dp.callback_query_handler(lambda call: call.data.startswith('lang'))
+async def language_set(callback: types.CallbackQuery):
+    lang = callback.data.split(":")[1]
+    configs.LANG_STORAGE[callback.from_user.id] = lang
+    configs.collusers.update_one({"_id": int(callback.from_user.id)}, {
+        "$set": {"lang": lang}})
+    await callback.answer(_("Selected", locale=lang))
+    await callback.message.delete()
+    await cmd_start(message=callback, locale=lang)
 
 
 @dp.edited_message_handler()
@@ -162,6 +161,11 @@ async def some_shipping_query_handler(shipping_query: types.ShippingQuery):
 @dp.errors_handler()
 async def some_error(baba, error):
     print("error", baba, error)
+
+
+@dp.callback_query_handler(lambda callback_query: True)
+async def some_callback(callback: types.CallbackQuery):
+    print(callback)
 
 
 if __name__ == '__main__':
